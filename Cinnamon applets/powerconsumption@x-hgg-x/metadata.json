@@ -1,0 +1,10 @@
+{
+    "uuid": "powerconsumption@x-hgg-x",
+    "name": "Power Consumption Indicator",
+    "description": "Shows power consumption on battery",
+    "cinnamon-version": [
+        "3.6",
+        "3.8"
+    ],
+    "last-edited": 1534702662
+}

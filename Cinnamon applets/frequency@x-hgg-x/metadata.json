@@ -1,0 +1,10 @@
+{
+    "uuid": "frequency@x-hgg-x",
+    "name": "CPU Frequency Indicator",
+    "description": "Shows CPU frequency",
+    "cinnamon-version": [
+        "3.6",
+        "3.8"
+    ],
+    "last-edited": 1534702662
+}
