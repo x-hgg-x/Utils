@@ -18,7 +18,7 @@ basename=$(basename "$filename")
 
 # count files with matching extension, and get position of filename in current directory
 n=$(ls "${dirname}"/*.${extensions} -1 2>/dev/null | wc -l)
-pos=$(ls "${dirname}"/*.${extensions} -1 2>/dev/null | grep -n "${basename}" | cut -d: -f1)
+pos=$(ls "${dirname}"/*.${extensions} -1 2>/dev/null | grep -n -F "${basename}" | cut -d: -f1)
 
 # if the filename does not have one of the extension above, launch vlc with provided filename
 if [ -z "$pos" ]; then
