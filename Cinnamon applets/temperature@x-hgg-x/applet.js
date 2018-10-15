@@ -4,11 +4,11 @@ const Applet = imports.ui.applet;
 const Settings = imports.ui.settings;
 const GLib = imports.gi.GLib;
 
-function CPUFrequencyApplet(metadata, orientation, instance_id) {
+function CPUTemperatureApplet(metadata, orientation, instance_id) {
   this._init(metadata, orientation, instance_id);
 }
 
-CPUFrequencyApplet.prototype = {
+CPUTemperatureApplet.prototype = {
   __proto__: Applet.TextApplet.prototype,
 
   _init: function(metadata, orientation, instance_id) {
@@ -25,10 +25,10 @@ CPUFrequencyApplet.prototype = {
     this.menu = new Applet.AppletPopupMenu(this, orientation);
     this.menuManager.addMenu(this.menu);
 
-    this.set_applet_tooltip('CPU Frequency');
+    this.set_applet_tooltip('CPU Temperature');
 
-    this.updateFrequency();
-    this.loopId = Mainloop.timeout_add(this.state.interval, () => this.updateFrequency());
+    this.updateTemperature();
+    this.loopId = Mainloop.timeout_add(this.state.interval, () => this.updateTemperature());
   },
 
   on_applet_clicked: function() {
@@ -47,7 +47,7 @@ CPUFrequencyApplet.prototype = {
     this.menu.removeAll();
     let isOpen = this.menu.isOpen;
     let section = new PopupMenu.PopupMenuSection();
-    let item = new PopupMenu.PopupMenuItem("CPU Frequency : " + this.title);
+    let item = new PopupMenu.PopupMenuItem("CPU Temperature : " + this.title);
 
     section.addMenuItem(item);
     this.menu.addMenuItem(section);
@@ -56,12 +56,12 @@ CPUFrequencyApplet.prototype = {
     }
   },
 
-  updateFrequency: function() {
+  updateTemperature: function() {
     if (!this.isLooping) {
       return false;
     }
 
-    this.title = GLib.spawn_command_line_sync('.local/share/cinnamon/applets/frequency@x-hgg-x/frequency.sh')[1].toString();
+    this.title = GLib.spawn_command_line_sync('i8kctl temp')[1].toString().trim() + ".0 °C";
 
     if (this._applet_label.text !== this.title) {
       this.set_applet_label(this.title);
@@ -72,5 +72,5 @@ CPUFrequencyApplet.prototype = {
 };
 
 function main(metadata, orientation, instance_id) {
-  return new CPUFrequencyApplet(metadata, orientation, instance_id);
+  return new CPUTemperatureApplet(metadata, orientation, instance_id);
 }

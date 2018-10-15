@@ -1,0 +1,10 @@
+{
+    "uuid": "temperature@x-hgg-x",
+    "name": "CPU Temperature Indicator",
+    "description": "Shows CPU temperature",
+    "cinnamon-version": [
+        "3.6",
+        "3.8"
+    ],
+    "last-edited": 1534702662
+}
