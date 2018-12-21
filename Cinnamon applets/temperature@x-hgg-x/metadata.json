@@ -4,7 +4,8 @@
     "description": "Shows CPU temperature",
     "cinnamon-version": [
         "3.6",
-        "3.8"
+        "3.8",
+        "4.0"
     ],
     "last-edited": 1534702662
 }
