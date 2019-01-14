@@ -19,7 +19,7 @@ You can check if the variable ```$vlcPath``` is correct in vlc.ps1, and modify k
 
 ### Linux
 
-Copy vlc.sh in your home directory and mark it executable, then copy the desktop file of VLC ```/usr/share/applications/vlc.desktop``` to ```~/.local/share/applications/vlc.desktop``` and change the field ```Exec``` to the path of vlc.sh (remove argument ```--started-from-file %U```. Known extensions are stocked in variable ```$extensions```.
+Copy vlc.sh in your home directory and mark it executable, then copy the desktop file of VLC ```/usr/share/applications/vlc.desktop``` to ```~/.local/share/applications/vlc.desktop``` and change the field ```Exec``` to the path of vlc.sh (remove argument ```--started-from-file %U```). Known extensions are stocked in variable ```$extensions```.
 
 You may want to activate the loop option in VLC preferences if VLC is configured to play the next track automatically.
 
