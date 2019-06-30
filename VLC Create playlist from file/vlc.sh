@@ -12,17 +12,17 @@ if [ -z "$1" ]; then
 fi
 
 # parse argument
-filename=$(realpath "$1")
+filename=$(realpath -- "$1")
 dirname=$(dirname "$filename")
 basename=$(basename "$filename")
 
 # count files with matching extension, and get position of filename in current directory
 n=$(ls "${dirname}"/*.${extensions} -1 2>/dev/null | wc -l)
-pos=$(ls "${dirname}"/*.${extensions} -1 2>/dev/null | grep -n -F "${basename}" | cut -d: -f1)
+pos=$(ls "${dirname}"/*.${extensions} -1 2>/dev/null | grep -n -F -- "${basename}" | cut -d: -f1)
 
 # if the filename does not have one of the extension above, launch vlc with provided filename
 if [ -z "$pos" ]; then
-	vlc "${filename}"
+	vlc -- "${filename}"
 	exit
 fi
 
