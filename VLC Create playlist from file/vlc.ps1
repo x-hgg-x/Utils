@@ -11,19 +11,19 @@ if ([string]::IsNullOrEmpty($filename)) {& $vlcPath; exit} # launch empty vlc if
 # parse argument
 $filename = Resolve-Path -LiteralPath $filename
 $dirname = Split-Path -LiteralPath $filename
-$basename = Get-ChildItem -LiteralPath $filename | foreach { $_.Name }
+$basename = Get-ChildItem -LiteralPath $filename | ForEach-Object { $_.Name }
 
 # count files with matching extension, and get position of filename in current directory
-$filelist = Get-ChildItem -LiteralPath $dirname | foreach { $_.Name } | Select-String -Pattern $Extensions
+$filelist = Get-ChildItem -File -LiteralPath $dirname | ForEach-Object { $_.Name } | Select-String -Pattern $Extensions | ForEach-Object { $_.Line }
 $count = $($filelist | Measure-Object -Line).Lines
-$position = $filelist | Select-String -Pattern $basename | foreach { $_.LineNumber }
+$position = $filelist | Select-String -Pattern $basename | ForEach-Object { $_.LineNumber }
 
 # if the filename does not have one of the extension above, launch vlc with provided filename
 if ([string]::IsNullOrEmpty($position)) {& $vlcPath $filename; exit}
 
 # change positions in playlist such as the first element is the opened file
-$filelist | select -last ($count-$position+1) | foreach { "$dirname\" + $_ } >  $Env:TMP\vlc.m3u
-$filelist | select -first ($position-1)       | foreach { "$dirname\" + $_ } >> $Env:TMP\vlc.m3u
+$filelist | Select-Object -last ($count-$position+1) | ForEach-Object { "$dirname\" + $_ } >  $Env:TMP\vlc.m3u
+$filelist | Select-Object -first ($position-1)       | ForEach-Object { "$dirname\" + $_ } >> $Env:TMP\vlc.m3u
 
 # launch playlist
-& $vlcPath $(cat $Env:TMP\vlc.m3u)
+& $vlcPath $(Get-Content $Env:TMP\vlc.m3u)
