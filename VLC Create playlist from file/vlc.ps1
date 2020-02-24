@@ -4,7 +4,7 @@ Param([string]$filename)
 Stop-Process -Name vlc -ErrorAction SilentlyContinue
 
 $vlcPath = "C:\Program Files (x86)\VideoLAN\VLC\vlc.exe"
-$Extensions='(.avi|.mp4|.mkv|.m4v|.mov|.mpg|.mpeg|.wmv|.ogg|.flac|.m4a|.mp3|.wav)'
+$Extensions='(\.avi$|\.mp4$|\.mkv$|\.m4v$|\.mov$|\.mpg$|\.mpeg$|\.wmv$|\.ogg$|\.flac$|\.m4a$|\.mp3$|\.wav$)'
 
 if ([string]::IsNullOrEmpty($filename)) {& $vlcPath; exit} # launch empty vlc if no argument provided
 
