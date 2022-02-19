@@ -16,7 +16,7 @@ $basename = Get-ChildItem -LiteralPath $filename | ForEach-Object { $_.Name }
 # count files with matching extension, and get position of filename in current directory
 $filelist = Get-ChildItem -File -LiteralPath $dirname | ForEach-Object { $_.Name } | Select-String -Pattern $Extensions | ForEach-Object { $_.Line }
 $count = $($filelist | Measure-Object -Line).Lines
-$position = $filelist | Select-String -Pattern $basename | ForEach-Object { $_.LineNumber }
+$position = $filelist | Select-String -SimpleMatch $basename | ForEach-Object { $_.LineNumber }
 
 # if the filename does not have one of the extension above, launch vlc with provided filename
 if ([string]::IsNullOrEmpty($position)) {& $vlcPath $filename; exit}
