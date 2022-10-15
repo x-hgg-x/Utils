@@ -1,2 +1,2 @@
 #!/bin/bash
-lscpu | grep MHz -m1 | awk '{printf "%.2f GHz", $NF/1000}'
+lscpu --all --extended | tail -n+2 | awk '{x+=$NF; next} END {printf "%.2f GHz", x/NR/1000}'
