@@ -61,7 +61,7 @@ CPUTemperatureApplet.prototype = {
       return false;
     }
 
-    this.title = GLib.spawn_command_line_sync('i8kctl temp')[1].toString().trim() + ".0 °C";
+    this.title = GLib.spawn_command_line_sync('sh -c \'sensors | grep -oP "(?<=Package id 0:).+?°C"\'')[1].toString().trim().substring(1).replace("°C", " °C");
 
     if (this._applet_label.text !== this.title) {
       this.set_applet_label(this.title);
